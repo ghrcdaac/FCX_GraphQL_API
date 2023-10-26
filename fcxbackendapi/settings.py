@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'fcxbackendapi.campaign_layers',
+    'graphene_django'
 ]
 
 MIDDLEWARE = [

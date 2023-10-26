@@ -14,7 +14,7 @@ class Link(models.Model):
     title = models.CharField(max_length=100)
     url = models.CharField(max_length=100)
     campaign_layer = models.ForeignKey(
-        CampaignLayer, on_delete=models.CASCADE, null=True
+        CampaignLayer, related_name="links", on_delete=models.CASCADE, null=True
     )
 
     def __str__(self):
@@ -25,7 +25,7 @@ class DOI(models.Model):
     instrument_short_name = models.CharField(max_length=100)
     doi_url = models.CharField(max_length=100)
     campaign_layer = models.ForeignKey(
-        CampaignLayer, on_delete=models.CASCADE, null=True
+        CampaignLayer, related_name="dois", on_delete=models.CASCADE, null=True
     )
     
     def __str__(self):
@@ -36,7 +36,7 @@ class Legend(models.Model):
     url = models.CharField(max_length=100)
     color = models.CharField(max_length=100)
     campaign_layer = models.ForeignKey(
-        CampaignLayer, on_delete=models.CASCADE, null=True
+        CampaignLayer, related_name="legends", on_delete=models.CASCADE, null=True
     )
 
     def __str__(self):
@@ -54,7 +54,7 @@ class InstrumentLayer(models.Model):
     unit = models.CharField(max_length=100)
     add_tick_event_listner = models.BooleanField()
     campaign_layer = models.ForeignKey(
-        CampaignLayer, on_delete=models.CASCADE, null=True
+        CampaignLayer, related_name="instrumentlayers", on_delete=models.CASCADE, null=True
     )
 
     def __str__(self):
