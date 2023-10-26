@@ -15,7 +15,7 @@ class DOI(models.Model):
     doi_url = models.CharField(max_length=100)
     
     def __str__(self):
-        return self.short_name
+        return self.instrument_short_name
 
 class Legend(models.Model):
     instrument_short_name = models.CharField(max_length=100)
@@ -36,7 +36,10 @@ class InstrumentLayer(models.Model):
     url = models.CharField(max_length=100)
     unit = models.CharField(max_length=100)
     add_tick_event_listner = models.BooleanField()
-    
+
+    def __str__(self):
+        return self.instrument_short_name
+
 
 class CampaignLayer(models.Model):
     title = models.CharField(max_length=100)
