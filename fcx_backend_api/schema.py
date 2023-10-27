@@ -6,7 +6,7 @@ from fcx_backend_api.campaign_layers.models import CampaignLayer, Link, DOI, Leg
 class CampaignLayerType(DjangoObjectType):
     class Meta:
         model = CampaignLayer
-        fields = ("id", "title", "logo_url", "description", "links", "dois", "legends", "instrumentlayers")
+        fields = ("id", "name", "title", "logo_url", "description", "links", "dois", "legends", "instrumentlayers")
 
 class LinkType(DjangoObjectType):
     class Meta:
@@ -26,7 +26,7 @@ class LegendType(DjangoObjectType):
 class InstrumentLayerType(DjangoObjectType):
     class Meta:
         model = InstrumentLayer
-        fields = ("id", "layer_id", "date", "instrument_short_name", "display_name", "type", "platform", "display_mechanism", "url", "unit", "add_tick_event_listner", "campaign_layer")
+        fields = ("id", "layer_id", "date", "instrument_short_name", "display_name", "type", "platform", "display_mechanism", "url", "unit", "variable_name", "add_tick_event_listner", "field_campaign_name", "campaign_layer")
 
 class Query(graphene.ObjectType):
     campaign_layers = graphene.List(CampaignLayerType)

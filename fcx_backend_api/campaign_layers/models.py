@@ -3,6 +3,7 @@ from django.db import models
 # Create your models here.
 
 class CampaignLayer(models.Model):
+    name = models.CharField(max_length=100)
     title = models.CharField(max_length=100)
     logo_url = models.URLField(max_length=2049)
     description = models.TextField()
@@ -52,6 +53,8 @@ class InstrumentLayer(models.Model):
     display_mechanism = models.CharField(max_length=100) # multiple level attribute
     url = models.URLField(max_length=2049)
     unit = models.CharField(max_length=100)
+    variable_name = models.CharField(max_length=500, null=True)
+    field_campaign_name = models.CharField(max_length=100)
     add_tick_event_listner = models.BooleanField()
     campaign_layer = models.ForeignKey(
         CampaignLayer, related_name="instrumentlayers", on_delete=models.CASCADE, null=True
