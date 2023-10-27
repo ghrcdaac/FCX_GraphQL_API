@@ -4,15 +4,15 @@ from django.db import models
 
 class CampaignLayer(models.Model):
     title = models.CharField(max_length=100)
-    logo_url = models.CharField(max_length=100)
-    description = models.CharField(max_length=100)
+    logo_url = models.URLField(max_length=2049)
+    description = models.TextField()
 
     def __str__(self):
         return self.title
    
 class Link(models.Model):
     title = models.CharField(max_length=100)
-    url = models.CharField(max_length=100)
+    url = models.URLField(max_length=2049)
     campaign_layer = models.ForeignKey(
         CampaignLayer, related_name="links", on_delete=models.CASCADE, null=True
     )
@@ -23,7 +23,7 @@ class Link(models.Model):
 class DOI(models.Model):
     long_name = models.CharField(max_length=100)
     instrument_short_name = models.CharField(max_length=100)
-    doi_url = models.CharField(max_length=100)
+    url = models.URLField(max_length=2049)
     campaign_layer = models.ForeignKey(
         CampaignLayer, related_name="dois", on_delete=models.CASCADE, null=True
     )
@@ -33,7 +33,7 @@ class DOI(models.Model):
 
 class Legend(models.Model):
     instrument_short_name = models.CharField(max_length=100)
-    url = models.CharField(max_length=100)
+    url = models.URLField(max_length=2049)
     color = models.CharField(max_length=100)
     campaign_layer = models.ForeignKey(
         CampaignLayer, related_name="legends", on_delete=models.CASCADE, null=True
@@ -50,7 +50,7 @@ class InstrumentLayer(models.Model):
     type = models.CharField(max_length=100) # multiple level attribute
     platform = models.CharField(max_length=100) # multiple level attribute
     display_mechanism = models.CharField(max_length=100) # multiple level attribute
-    url = models.CharField(max_length=100)
+    url = models.URLField(max_length=2049)
     unit = models.CharField(max_length=100)
     add_tick_event_listner = models.BooleanField()
     campaign_layer = models.ForeignKey(

@@ -16,7 +16,7 @@ class LinkType(DjangoObjectType):
 class DOIType(DjangoObjectType):
     class Meta:
         model = DOI
-        fields = ("id", "long_name", "instrument_short_name", "doi_url", "campaign_layer")
+        fields = ("id", "long_name", "instrument_short_name", "url", "campaign_layer")
 
 class LegendType(DjangoObjectType):
     class Meta:
