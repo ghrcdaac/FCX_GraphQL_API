@@ -1,5 +1,5 @@
 """
-URL configuration for fcxbackendapi project.
+URL configuration for fcx_backend_api project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.2/topics/http/urls/
@@ -20,7 +20,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from graphene_django.views import GraphQLView
 
-from fcxbackendapi.schema import schema
+from fcx_backend_api.schema import schema
 
 urlpatterns = [
     path('admin/', admin.site.urls),

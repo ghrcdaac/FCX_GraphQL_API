@@ -1,7 +1,7 @@
 import graphene
 from graphene_django import DjangoObjectType
 
-from fcxbackendapi.campaign_layers.models import CampaignLayer, Link, DOI, Legend, InstrumentLayer
+from fcx_backend_api.campaign_layers.models import CampaignLayer, Link, DOI, Legend, InstrumentLayer
 
 class CampaignLayerType(DjangoObjectType):
     class Meta:
