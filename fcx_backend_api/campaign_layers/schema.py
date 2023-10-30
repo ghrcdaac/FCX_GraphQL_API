@@ -41,6 +41,7 @@ class Query(graphene.ObjectType):
     instrument_layer_by_name = graphene.Field(InstrumentLayerType, name=graphene.String(required=True))
     instrument_layer_by_type = graphene.List(InstrumentLayerType, type=graphene.String(required=True))
     instrument_layer_by_platform = graphene.List(InstrumentLayerType, platform=graphene.String(required=True))
+    instrument_layer_by_date = graphene.List(InstrumentLayerType, date=graphene.String(required=True))
 
     # Resolvers, which are functions that tell graphene where to get the data from
     def resolve_campaign_layers(root, info):
@@ -79,6 +80,12 @@ class Query(graphene.ObjectType):
     def resolve_instrument_layer_by_platform(root, info, platform):
         try:
             return InstrumentLayer.objects.filter(platform=platform)
+        except InstrumentLayer.DoesNotExist:
+            return None
+
+    def resolve_instrument_layer_by_date(root, info, date):
+        try:
+            return InstrumentLayer.objects.filter(date=date)
         except InstrumentLayer.DoesNotExist:
             return None
 
