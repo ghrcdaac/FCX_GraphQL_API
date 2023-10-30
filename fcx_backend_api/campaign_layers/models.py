@@ -44,13 +44,29 @@ class Legend(models.Model):
         return self.instrument_short_name
 
 class InstrumentLayer(models.Model):
-    layer_id = models.CharField(max_length=100)
+    TYPE_CHOICES = [
+        # ("A", "B") # A: actual value, B: human readable value
+        ("track", "Navigation Track"),
+        ("instrument", "Sensor Instrument")
+    ]
+    PLATFORM_CHOICES =[
+        ("air", "Air"),
+        ("ground", "Ground"),
+        ("satellite", "Satellite")
+    ]
+    DISPLAY_MECHANISM_CHOICES = [
+        ("czml", "CZML"),
+        ("3dtile", "3DTile Point Cloud"),
+        ("wmts", "Web Map Tile Server"),
+        ("points", "Point Primitive")
+    ]
+    layer_id = models.CharField(max_length=100, unique=True)
     date = models.CharField(max_length=100)
     instrument_short_name = models.CharField(max_length=100)
     display_name = models.CharField(max_length=100)
-    type = models.CharField(max_length=100) # multiple level attribute
-    platform = models.CharField(max_length=100) # multiple level attribute
-    display_mechanism = models.CharField(max_length=100) # multiple level attribute
+    type = models.CharField(max_length=100, choices=TYPE_CHOICES)
+    platform = models.CharField(max_length=100, choices=PLATFORM_CHOICES)
+    display_mechanism = models.CharField(max_length=100, choices=DISPLAY_MECHANISM_CHOICES)
     url = models.URLField(max_length=2049)
     unit = models.CharField(max_length=100)
     variable_name = models.CharField(max_length=500, null=True)
