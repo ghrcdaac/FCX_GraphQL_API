@@ -94,7 +94,7 @@ query {
       platform
       url
       unit
-      addTickEventListener
+      addTickEventListner
       variableName
       fieldCampaignName
     }
