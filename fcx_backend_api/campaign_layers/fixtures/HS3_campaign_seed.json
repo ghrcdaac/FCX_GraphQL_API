@@ -6,7 +6,7 @@
             "name": "HS3",
             "title": "HS3 Field Campaign",
             "logo_url": "missions-logos/hs3.png",
-            "description": "The Hurricane and Severe Storm Sentinel (HS3) was a five-year NASA mission specifically targeted to"
+            "description": "The Hurricane and Severe Storm Sentinel (HS3) was a five-year NASA mission specifically targeted to investigate the processes that underlie hurricane formation and intensity change in the Atlantic Ocean basin. The goals for HS3 included assessing the relative roles of large-scale environment and storm-scale internal Data User Guide processes and addressing the controversial role of the Saharan Air Layer (SAL) in tropical storm formation and intensification as well as the role of deep convection in the inner-core region of storms."
         }
     },
 
@@ -42,7 +42,7 @@
         "pk": 4,
         "fields": {
             "title": "Micro Article",
-            "url": "https://ghrc.nsstc.nasa.gov/home/micro-articles/field-campaign-hurricane-and-severe-storm-sentinel-h",
+            "url": "https://ghrc.nsstc.nasa.gov/home/micro-articles/field-campaign-hurricane-and-severe-storm-sentinel-hs3",
             "campaign_layer": 1
         }
     },
@@ -119,11 +119,11 @@
             "type": "instrument",
             "platform": "air",
             "display_mechanism": "3dtile",
-            "url": "https://ghrc-fcx-field-campaigns-szg.s3.amazonaws.com/Hs3/instrument-processed-data/cpl/20120906/til",
+            "url": "https://ghrc-fcx-field-campaigns-szg.s3.amazonaws.com/Hs3/instrument-processed-data/cpl/20120906/tileset.json",
             "unit": "km⁻¹ sr⁻¹",
             "variable_name": "zku (ka/ku Radar Reflectivity)",
             "field_campaign_name": "HS3",
-            "add_tick_event_listner": false,
+            "add_tick_event_listner": true,
             "campaign_layer": 1
         }
     },
@@ -138,11 +138,11 @@
             "type": "instrument",
             "platform": "air",
             "display_mechanism": "3dtile",
-            "url": "https://ghrc-fcx-field-campaigns-szg.s3.amazonaws.com/Hs3/instrument-processed-data/hiwrap/20130925/",
+            "url": "https://ghrc-fcx-field-campaigns-szg.s3.amazonaws.com/Hs3/instrument-processed-data/hiwrap/20130925/tileset.json",
             "unit": "dBZ",
             "variable_name": "zku (ka/ku Radar Reflectivity)",
             "field_campaign_name": "HS3",
-            "add_tick_event_listner": false,
+            "add_tick_event_listner": true,
             "campaign_layer": 1
         }
     },
@@ -157,7 +157,7 @@
             "type": "track",
             "platform": "air",
             "display_mechanism": "czml",
-            "url": "https://ghrc-fcx-field-campaigns-szg.s3.amazonaws.com/Hs3/instrument-processed-data/nav/hs3_navgh_IW",
+            "url": "https://ghrc-fcx-field-campaigns-szg.s3.amazonaws.com/Hs3/instrument-processed-data/nav/hs3_navgh_IWG1_20140930.czml",
             "unit": "NA",
             "variable_name": "zku (ka/ku Radar Reflectivity)",
             "field_campaign_name": "HS3",
