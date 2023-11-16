@@ -6,22 +6,6 @@ provider "aws" {
 
 
 ## define aws instance AMI to use 
-data "aws_ami" "ubuntu" {
-  most_recent = true
-
-  filter {
-    name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
-  }
-
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-
-  owners = ["099720109477"] # Canonical
-}
-
 data "aws_ami" "amazon_linux_2" {
   most_recent = true
   owners      = ["amazon"]
@@ -45,7 +29,7 @@ resource "aws_key_pair" "key_pair" {
 }
 
 resource "local_file" "private_key" {
-  content  = tls_private_key.rsa_4096.public_key_pem
+  content  = tls_private_key.rsa_4096.private_key_pem
   filename = var.key_name
 
   provisioner "local-exec" {
@@ -95,20 +79,20 @@ resource "aws_security_group" "main" {
 resource "aws_iam_role" "role" {
   path               = "/"
   assume_role_policy = <<EOF
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Action": "sts:AssumeRole",
-            "Principal": {
-               "Service": "ec2.amazonaws.com"
-            },
-            "Effect": "Allow",
-            "Sid": ""
-        }
-    ]
-}
-EOF
+  {
+      "Version": "2012-10-17",
+      "Statement": [
+          {
+              "Action": "sts:AssumeRole",
+              "Principal": {
+                "Service": "ec2.amazonaws.com"
+              },
+              "Effect": "Allow",
+              "Sid": ""
+          }
+      ]
+  }
+  EOF
 }
 
 resource "aws_iam_role_policy_attachment" "attachment" {
@@ -129,7 +113,7 @@ resource "aws_instance" "fcx_backend_graphql_api" {
   iam_instance_profile = aws_iam_instance_profile.profile.name
   key_name = aws_key_pair.key_pair.key_name
   vpc_security_group_ids = [aws_security_group.main.id]
-  user_data_base64 = filebase64("${path.module}/tf_dockerwork.sh")
+  # user_data_base64 = filebase64("${path.module}/tf_dockerwork.sh")
 
   tags = {
     Name = "fcx-backend-graphql-api"
