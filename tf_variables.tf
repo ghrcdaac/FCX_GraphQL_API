@@ -22,5 +22,5 @@ variable "key_name" {
 variable "instance_type" {
   description = "The type of instance to start."
   type = string
-  default = "t3.micro"
+  default = "t2.micro"
 }

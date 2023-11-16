@@ -113,7 +113,7 @@ resource "aws_instance" "fcx_backend_graphql_api" {
   iam_instance_profile = aws_iam_instance_profile.profile.name
   key_name = aws_key_pair.key_pair.key_name
   vpc_security_group_ids = [aws_security_group.main.id]
-  # user_data_base64 = filebase64("${path.module}/tf_dockerwork.sh")
+  user_data_base64 = filebase64("${path.module}/tf_dockerwork.sh")
 
   tags = {
     Name = "fcx-backend-graphql-api"
