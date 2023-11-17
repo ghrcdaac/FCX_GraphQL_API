@@ -104,7 +104,6 @@ resource "aws_iam_instance_profile" "profile" {
   role = aws_iam_role.role.name
 }
 
-
 ## Create a new host with instance type
 resource "aws_instance" "fcx_backend_graphql_api" {
   # ami = data.aws_ami.ubuntu.id
@@ -113,7 +112,23 @@ resource "aws_instance" "fcx_backend_graphql_api" {
   iam_instance_profile = aws_iam_instance_profile.profile.name
   key_name = aws_key_pair.key_pair.key_name
   vpc_security_group_ids = [aws_security_group.main.id]
-  user_data_base64 = filebase64("${path.module}/tf_dockerwork.sh")
+  # bootstrap EC2 instance
+  # user_data = base64encode(templatefile("${path.module}/tf_dockerwork.sh", { accountId = var.accountId, aws_region = var.aws_region }))
+   user_data = <<-EOF
+                    #!/bin/bash
+                    sudo yum update -y
+                    sudo amazon-linux-extras install docker -y
+                    sudo service docker start
+                    usermod -a -G docker ec2-user
+                    sudo yum install amazon-ecr-credential-helper -y
+                    echo '{"credsStore": "ecr-login"}' > ~/.docker/config.json
+                    aws --region ${var.aws_region} ecr get-authorization-token
+                    aws ecr get-login-password --region ${var.aws_region} | docker login --username AWS --password-stdin ${var.accountId}.dkr.ecr.${var.aws_region}.amazonaws.com
+                    sleep 2
+                    docker pull ${var.accountId}.dkr.ecr.${var.aws_region}.amazonaws.com/fcx-backend-api:latest
+                    docker pull postgres
+                    docker run -t -d ${var.accountId}.dkr.ecr.${var.aws_region}.amazonaws.com/fcx-backend-api:latest
+                  EOF
 
   tags = {
     Name = "fcx-backend-graphql-api"

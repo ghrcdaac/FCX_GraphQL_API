@@ -10,6 +10,10 @@ variable "aws_region" {
   type    = string
 }
 
+variable "accountId" {
+  description = "AWS account id."
+  type    = string
+}
 
 ## Ones with default values. Placed to easily manipulate these
 
