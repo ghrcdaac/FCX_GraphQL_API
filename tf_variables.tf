@@ -15,6 +15,24 @@ variable "accountId" {
   type    = string
 }
 
+#
+
+variable "POSTGRES_DB" {
+  description = "used for postgres db initialization and used by Django API"
+  type = string
+}
+
+variable "POSTGRES_USER" {
+  description = "used for postgres db initialization and used by Django API"
+  type = string
+}
+
+variable "POSTGRES_PASSWORD" {
+  description = "used for postgres db initialization and used by Django API"
+  type = string
+}
+
+
 ## Ones with default values. Placed to easily manipulate these
 
 variable "key_name" {
