@@ -119,26 +119,23 @@ resource "aws_instance" "fcx_backend_graphql_api" {
                     sudo yum update -y
                     sudo amazon-linux-extras install docker -y
                     sudo service docker start
+                    sudo curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+                    sudo chmod +x /usr/local/bin/docker-compose
                     usermod -a -G docker ec2-user
                     sudo yum install amazon-ecr-credential-helper -y
                     echo '{"credsStore": "ecr-login"}' > ~/.docker/config.json
                     aws --region ${var.aws_region} ecr get-authorization-token
                     aws ecr get-login-password --region ${var.aws_region} | docker login --username AWS --password-stdin ${var.accountId}.dkr.ecr.${var.aws_region}.amazonaws.com
                     sleep 2
-                    docker pull ${var.accountId}.dkr.ecr.${var.aws_region}.amazonaws.com/fcx-backend-api:latest
-                    docker pull postgres
-                    docker network create api_network
-                    docker run -d --name db --network api_network -p 5432:5432 -e POSTGRES_DB=${var.POSTGRES_DB} -e POSTGRES_USER=${var.POSTGRES_USER} -e POSTGRES_PASSWORD=${var.POSTGRES_PASSWORD} --restart always postgres
-                    sleep 2
-                    docker run -t -d --name graphql-api --network api_network -p 80:8000 -e POSTGRES_DB=${var.POSTGRES_DB} -e POSTGRES_USER=${var.POSTGRES_USER} -e POSTGRES_PASSWORD=${var.POSTGRES_PASSWORD} --restart always ${var.accountId}.dkr.ecr.${var.aws_region}.amazonaws.com/fcx-backend-api:latest
-                    sleep 2
-                    docker exec -it ./graphql-api python manage.py migrate
-                    docker exec -it ./graphql-api python manage.py loaddata HS3_campaign_seed
-                    sleep 1
-                    docker exec -it ./graphql-api python manage.py runserver 0.0.0.0:8000
+                    docker-compose -f /home/ec2-user/docker-compose.prod.yml up -d
                   EOF
 
   tags = {
     Name = "fcx-backend-graphql-api"
+  }
+
+  provisioner "file" {
+    source      = "./docker-compose.prod.yml"
+    destination = "/home/ec2-user/docker-compose.prod.yml"
   }
 }
