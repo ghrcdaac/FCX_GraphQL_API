@@ -114,7 +114,7 @@ resource "aws_instance" "fcx_backend_graphql_api" {
   vpc_security_group_ids = [aws_security_group.main.id]
   # bootstrap EC2 instance
   # user_data = base64encode(templatefile("${path.module}/tf_dockerwork.sh", { accountId = var.accountId, aws_region = var.aws_region }))
-   user_data = <<-EOF
+  user_data = <<-EOF
                     #!/bin/bash
                     sudo yum update -y
                     sudo amazon-linux-extras install docker -y

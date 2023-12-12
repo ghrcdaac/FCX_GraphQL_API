@@ -1,0 +1,39 @@
+# Use postgres/example user/password credentials
+version: '3.1'
+
+services:
+  db:
+    image: postgres
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+
+  dbportal:
+    image: adminer
+    restart: always
+    ports:
+      - 8009:8080
+    depends_on:
+      - db
+  
+  api:
+    command: >
+      sh -c "
+             sleep 10 &&
+             python manage.py migrate &&
+             python manage.py loaddata HS3_campaign_seed &&
+             python manage.py runserver 0.0.0.0:8000"
+    image: ${TF_VAR_accountId}.dkr.ecr.${TF_VAR_aws_region}.amazonaws.com/fcx-backend-api:latest
+    ports:
+      - "8000:8000"
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    depends_on:
+      - db
+      - dbportal
