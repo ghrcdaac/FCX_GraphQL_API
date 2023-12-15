@@ -30,7 +30,9 @@ Start the application by running the following command:
 docker-compose -f docker-compose.dev.yml up
 ```
 
-### 3. Migrate the Database (if needed)
+### Optional:
+
+### 3.  Migrate the Database (if needed)
 
 If you are running the application for the first time or if the database model has changed, apply the migrations using:
 
