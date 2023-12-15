@@ -126,16 +126,9 @@ resource "aws_instance" "fcx_backend_graphql_api" {
                     echo '{"credsStore": "ecr-login"}' > ~/.docker/config.json
                     aws --region ${var.aws_region} ecr get-authorization-token
                     aws ecr get-login-password --region ${var.aws_region} | docker login --username AWS --password-stdin ${var.accountId}.dkr.ecr.${var.aws_region}.amazonaws.com
-                    sleep 2
-                    docker-compose -f /home/ec2-user/docker-compose.prod.yml up -d
                   EOF
 
   tags = {
     Name = "fcx-backend-graphql-api"
-  }
-
-  provisioner "file" {
-    source      = "./docker-compose.prod.yml"
-    destination = "/home/ec2-user/docker-compose.prod.yml"
   }
 }

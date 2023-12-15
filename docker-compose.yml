@@ -21,13 +21,14 @@ services:
       - db
   
   api:
-    command: >
-      sh -c "
+    command: sh -c "
              sleep 10 &&
              python manage.py migrate &&
              python manage.py loaddata HS3_campaign_seed &&
              python manage.py runserver 0.0.0.0:8000"
-    image: ${TF_VAR_accountId}.dkr.ecr.${TF_VAR_aws_region}.amazonaws.com/fcx-backend-api:latest
+    build: .
+    volumes:
+      - .:/code
     ports:
       - "80:8000"
     environment:
