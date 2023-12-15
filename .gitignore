@@ -74,3 +74,15 @@ local_settings.py
 
 .env
 db.sqlite3
+
+
+### Keys ###
+
+key.pem
+
+## terraform ##
+
+.terraform/
+terraform.tfstate
+terraform.tfstate.backup
+terraform.tfvars
